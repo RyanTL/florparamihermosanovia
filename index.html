@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flor para mi hermosa novia</title>
+  <style>
+    /* Basic resets */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header at the top */
+    #header {
+      text-align: center;
+      font-size: 3em;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    /* Container for the flower */
+    #flower-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Spinning animation for the flower */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    #flower {
+      width: 300px;
+      height: 300px;
+      animation: spin 10s linear infinite;
+      transform-origin: center;
+    }
+
+    /* Counter at the bottom left */
+    #counter {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      font-size: 1.2em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Big text at the top -->
+  <div id="header">Para que veas que si te amo por siempre aquí esta tu flor amarilla. Te amo</div>
+  
+  <!-- Container for the spinning flower -->
+  <div id="flower-container">
+    <!-- Enhanced Inline SVG for a beautiful flower -->
+    <svg id="flower" viewBox="0 0 300 300">
+      <defs>
+        <!-- Radial gradient for the petals -->
+        <radialGradient id="petalGradient" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff8a5"/>
+          <stop offset="100%" stop-color="#f7d560"/>
+        </radialGradient>
+        <!-- Gaussian blur for a soft glow on the center -->
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Create 12 petals arranged around the center -->
+      <g id="petals">
+        <!-- Define one petal shape -->
+        <path id="petal" d="M150,70 Q170,110 150,130 Q130,110 150,70" fill="url(#petalGradient)" />
+        <!-- Use the petal shape rotated around center -->
+        <use xlink:href="#petal" transform="rotate(0,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(30,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(60,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(90,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(120,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(150,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(180,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(210,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(240,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(270,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(300,150,150)"/>
+        <use xlink:href="#petal" transform="rotate(330,150,150)"/>
+      </g>
+      
+      <!-- Center of the flower -->
+      <circle cx="150" cy="150" r="20" fill="#ff9800" filter="url(#glow)" />
+    </svg>
+  </div>
+  
+  <!-- Counter for the days passed -->
+  <div id="counter">Para que recuerdes lo grande que es nuestro amor. Desde el 22 de febrebero de 2022 llevamos: <span id="days"></span> dias juntitos y cada dia se sumaran mas.</div>
+  
+  <script>
+    // Function to update the day counter
+    function updateCounter() {
+      const startDate = new Date(2022, 1, 22); // Feb 22, 2022 (month is 0-indexed)
+      const now = new Date();
+      const diffTime = now - startDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById("days").textContent = diffDays;
+    }
+    
+    // Initial update and periodic refresh (every hour)
+    updateCounter();
+    setInterval(updateCounter, 3600000);
+  </script>
+</body>
+</html>
